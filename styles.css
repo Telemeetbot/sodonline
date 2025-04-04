@@ -41,14 +41,14 @@ table {
     margin-top: 20px;
 }
 
-/* Add this to make the Error titles column wider */
+
 th:nth-child(2),
 td:nth-child(2) {
-    width: 20%; /* Adjust this percentage as needed */
-    min-width: 200px; /* Ensures it never gets too narrow */
+    width: 20%; 
+    min-width: 200px;
 }
 
-/* Keep all your existing styles below */
+
 th, td {
     padding: 12px;
     border: 1px solid #ddd;
@@ -145,7 +145,7 @@ footer {
     }
 }
 
-/* Image Thumbnail Styles */
+
 .thumbnail-container {
     position: relative;
     display: inline-block;
@@ -184,7 +184,7 @@ footer {
 }
 
 
-/* Fullscreen Preview Styles */
+
 .fullscreen-preview {
     position: fixed;
     top: 0;
