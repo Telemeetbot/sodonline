@@ -1,0 +1,206 @@
+h1.eng {
+    color: white;
+}
+
+h1.mm {
+    color: black;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+header {
+    background-color: #4267B2;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+    background-color: white;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 90%;
+}
+
+h1, h2 {
+    color: #4267B2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+/* Add this to make the Error titles column wider */
+th:nth-child(2),
+td:nth-child(2) {
+    width: 20%; /* Adjust this percentage as needed */
+    min-width: 200px; /* Ensures it never gets too narrow */
+}
+
+/* Keep all your existing styles below */
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+ol {
+    padding-left: 20px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #4267B2;
+    color: white;
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+
+.language-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.language-switch-container span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+.toggle-checkbox {
+    display: none;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    width: 45px;
+    height: 22px;
+    background: #bbb;
+    border-radius: 20px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 3px;
+    transform: translateY(-50%);
+    transition: left 0.3s ease, background 0.3s ease;
+}
+
+.toggle-checkbox:checked + .toggle-label {
+    background: #28A745;
+}
+
+.toggle-checkbox:checked + .toggle-label::before {
+    left: 25px;
+}
+
+.mobile-message {
+    display: none;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .pc-content {
+        display: none !important;
+    }
+
+    .mobile-message {
+        display: block !important;
+    }
+}
+
+/* Image Thumbnail Styles */
+.thumbnail-container {
+    position: relative;
+    display: inline-block;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.thumbnail-preview {
+    position: absolute;
+    display: none;
+    z-index: 9999;
+    width: 200px;
+    height: 150px;
+    border: 2px solid white;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    pointer-events: none;
+    background: white;
+}
+
+.thumbnail-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* Fullscreen Preview Styles */
+.fullscreen-preview {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    cursor: pointer;
+}
+
+.fullscreen-preview img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+}
