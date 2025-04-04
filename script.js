@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Language toggle and mobile detection
+    
     const languageToggle = document.getElementById('language-toggle');
     const engContent = document.querySelectorAll('.eng');
     const mmContent = document.querySelectorAll('.mm');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Page load animation
+    
     document.body.style.transform = 'translateY(50px)';
     document.body.style.opacity = '0';
     setTimeout(() => {
@@ -42,14 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.opacity = '1';
     }, 100);
 
-    // Fullscreen preview container
+  
     const previewContainer = document.createElement('div');
     previewContainer.className = 'fullscreen-preview';
     previewContainer.innerHTML = '<img src="" alt="Full size preview">';
     previewContainer.style.display = 'none';
     document.body.appendChild(previewContainer);
 
-    // Hover preview (Centered in the Relevant Table Cell)
+    
     const hoverPreview = document.createElement('div');
     hoverPreview.className = 'thumbnail-preview';
     hoverPreview.innerHTML = '<img src="" alt="Preview">';
@@ -60,38 +60,38 @@ document.addEventListener('DOMContentLoaded', function() {
     hoverPreview.style.boxShadow = '0px 10px 30px rgba(0, 0, 0, 0.3)';
     document.body.appendChild(hoverPreview);
 
-    // Set up event listeners for all photo links
+    
     document.querySelectorAll('.photo-link').forEach(link => {
         const fullSizeUrl = link.getAttribute('data-fullsize');
 
-        // Click for fullscreen preview
+        
         link.addEventListener('click', function(e) {
             e.preventDefault();
             previewContainer.querySelector('img').src = fullSizeUrl;
             previewContainer.style.display = 'flex';
         });
 
-        // Hover to show preview (Centered in the Table Row & Column)
+        
         link.addEventListener('mouseenter', function() {
             if (!fullSizeUrl) return;
 
             const img = this.querySelector('img');
             if (!img) return;
 
-            // Find the closest table row and column
+            
             const cell = img.closest('td');
             const row = img.closest('tr');
             if (!cell || !row) return;
 
-            // Get bounding box of the relevant row and column
+           
             const rowRect = row.getBoundingClientRect();
             const cellRect = cell.getBoundingClientRect();
 
-            // Calculate the center position of the relevant row & column
+            
             const centerX = cellRect.left + cellRect.width / 2;
             const centerY = rowRect.top + rowRect.height / 2;
 
-            // Set preview position
+            
             hoverPreview.querySelector('img').src = fullSizeUrl;
             hoverPreview.style.display = 'block';
             hoverPreview.style.left = `${centerX}px`;
@@ -104,12 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close fullscreen preview on click
+    
     previewContainer.addEventListener('click', function() {
         this.style.display = 'none';
     });
 
-    // Prevent scrolling from moving the preview
+    
     window.addEventListener('scroll', function() {
         if (hoverPreview.style.display === 'block') {
             hoverPreview.style.position = 'absolute';
