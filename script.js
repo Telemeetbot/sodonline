@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    
     const languageToggle = document.getElementById('language-toggle');
     const engContent = document.querySelectorAll('.eng');
     const mmContent = document.querySelectorAll('.mm');
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    
     document.body.style.transform = 'translateY(50px)';
     document.body.style.opacity = '0';
     setTimeout(() => {
@@ -42,77 +40,77 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.opacity = '1';
     }, 100);
 
-  
     const previewContainer = document.createElement('div');
     previewContainer.className = 'fullscreen-preview';
-    previewContainer.innerHTML = '<img src="" alt="Full size preview">';
+    previewContainer.innerHTML = '<div class="preview-content"><img src="" alt="Full size preview"></div>';
     previewContainer.style.display = 'none';
     document.body.appendChild(previewContainer);
 
-    
-    const hoverPreview = document.createElement('div');
-    hoverPreview.className = 'thumbnail-preview';
-    hoverPreview.innerHTML = '<img src="" alt="Preview">';
-    hoverPreview.style.display = 'none';
-    hoverPreview.style.position = 'absolute';
-    hoverPreview.style.zIndex = '9999';
-    hoverPreview.style.pointerEvents = 'none'; 
-    hoverPreview.style.boxShadow = '0px 10px 30px rgba(0, 0, 0, 0.3)';
-    document.body.appendChild(hoverPreview);
-
-    
     document.querySelectorAll('.photo-link').forEach(link => {
         const fullSizeUrl = link.getAttribute('data-fullsize');
 
-        
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            previewContainer.querySelector('img').src = fullSizeUrl;
-            previewContainer.style.display = 'flex';
-        });
-
-        
-        link.addEventListener('mouseenter', function() {
-            if (!fullSizeUrl) return;
-
-            const img = this.querySelector('img');
-            if (!img) return;
-
             
-            const cell = img.closest('td');
-            const row = img.closest('tr');
-            if (!cell || !row) return;
-
-           
-            const rowRect = row.getBoundingClientRect();
-            const cellRect = cell.getBoundingClientRect();
-
+            const thumbnail = this.querySelector('img');
+            const thumbRect = thumbnail.getBoundingClientRect();
             
-            const centerX = cellRect.left + cellRect.width / 2;
-            const centerY = rowRect.top + rowRect.height / 2;
-
+            const thumbClone = thumbnail.cloneNode();
+            thumbClone.style.position = 'fixed';
+            thumbClone.style.top = `${thumbRect.top}px`;
+            thumbClone.style.left = `${thumbRect.left}px`;
+            thumbClone.style.width = `${thumbRect.width}px`;
+            thumbClone.style.height = `${thumbRect.height}px`;
+            thumbClone.style.transition = 'all 0.4s cubic-bezier(0.32, 0.72, 0, 1)';
+            thumbClone.style.zIndex = '2001';
+            thumbClone.style.objectFit = 'cover';
+            thumbClone.style.borderRadius = '4px';
+            document.body.appendChild(thumbClone);
             
-            hoverPreview.querySelector('img').src = fullSizeUrl;
-            hoverPreview.style.display = 'block';
-            hoverPreview.style.left = `${centerX}px`;
-            hoverPreview.style.top = `${centerY}px`;
-            hoverPreview.style.transform = 'translate(-50%, -50%)';
-        });
-
-        link.addEventListener('mouseleave', function() {
-            hoverPreview.style.display = 'none';
+            const fullImg = new Image();
+            fullImg.src = fullSizeUrl;
+            fullImg.onload = function() {
+                thumbClone.style.top = '50%';
+                thumbClone.style.left = '50%';
+                thumbClone.style.transform = 'translate(-50%, -50%)';
+                thumbClone.style.width = 'min(90vw, ' + fullImg.naturalWidth + 'px)';
+                thumbClone.style.height = 'auto';
+                thumbClone.style.maxHeight = '90vh';
+                thumbClone.style.borderRadius = '0';
+                thumbClone.style.objectFit = 'contain';
+                
+                setTimeout(() => {
+                    previewContainer.querySelector('img').src = fullSizeUrl;
+                    previewContainer.style.display = 'flex';
+                    setTimeout(() => {
+                        previewContainer.classList.add('active');
+                    }, 10);
+                    
+                    setTimeout(() => {
+                        thumbClone.remove();
+                    }, 400);
+                }, 10);
+            };
         });
     });
 
-    
-    previewContainer.addEventListener('click', function() {
-        this.style.display = 'none';
+    previewContainer.addEventListener('click', function(e) {
+        if (e.target === this || e.target.classList.contains('preview-content')) {
+            this.classList.remove('active');
+            setTimeout(() => {
+                this.style.display = 'none';
+                this.querySelector('img').src = '';
+            }, 300);
+        }
     });
 
-    
-    window.addEventListener('scroll', function() {
-        if (hoverPreview.style.display === 'block') {
-            hoverPreview.style.position = 'absolute';
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && previewContainer.style.display === 'flex') {
+            previewContainer.classList.remove('active');
+            setTimeout(() => {
+                previewContainer.style.display = 'none';
+                previewContainer.querySelector('img').src = '';
+            }, 300);
         }
     });
 });
