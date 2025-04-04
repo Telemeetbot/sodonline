@@ -41,13 +41,11 @@ table {
     margin-top: 20px;
 }
 
-
 th:nth-child(2),
 td:nth-child(2) {
     width: 20%; 
-    min-width: 200px;
+    min-width: 200px; 
 }
-
 
 th, td {
     padding: 12px;
@@ -145,15 +143,14 @@ footer {
     }
 }
 
-
 .thumbnail-container {
     position: relative;
     display: inline-block;
 }
 
 .thumbnail {
-    width: 60px;
-    height: 60px;
+    width: 348px;
+    height: 130px;
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
@@ -165,14 +162,14 @@ footer {
 }
 
 .thumbnail-preview {
-    position: absolute;
+    position: fixed;
     display: none;
     z-index: 9999;
-    width: 200px;
-    height: 150px;
+    width: 300px;
+    height: 225px;
     border: 2px solid white;
     border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
     pointer-events: none;
     background: white;
 }
@@ -182,7 +179,6 @@ footer {
     height: 100%;
     object-fit: contain;
 }
-
 
 
 .fullscreen-preview {
