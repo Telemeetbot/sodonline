@@ -36,4 +36,29 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.transform = 'translateY(0)';
         document.body.style.opacity = '1';
     }, 100);
+
+    const photoLinks = document.querySelectorAll('.photo-link');
+    
+    photoLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const imgSrc = this.getAttribute('data-fullsize');
+            const overlay = document.createElement('div');
+            overlay.className = 'fullscreen-overlay';
+            const fullImg = document.createElement('img');
+            fullImg.className = 'fullscreen-image';
+            fullImg.src = imgSrc;
+            overlay.appendChild(fullImg);
+            document.body.appendChild(overlay);
+            overlay.addEventListener('click', function() {
+                document.body.removeChild(overlay);
+            });
+            document.addEventListener('keydown', function escClose(e) {
+                if (e.key === 'Escape') {
+                    document.body.removeChild(overlay);
+                    document.removeEventListener('keydown', escClose);
+                }
+            });
+        });
+    });
 });
